@@ -1,0 +1,51 @@
+
+// Server.js file 
+
+// import Express from "express"
+// import config from "./config/config.js";
+// import fs from 'fs/promises';
+// import productRoute from "./routes/products.route.js";
+
+// const app=Express();
+
+
+//app.use((req,res,next)=>{
+//res.send("this is middleware")
+//next();
+
+// })
+
+//for template engine  ejs 
+//app.set("view engine","ejs");
+// configure for static  files  
+
+//  app.use(Express.static('./public'));
+// app.get("/",(req,res)=>{
+//     res.send("Hello world");
+// })
+
+// app.get("/about",(req,res)=>{
+//     res.send("this is about page ")
+// })
+
+
+// app.get("/name/:username",(req,res)=>{
+//        res.send(`hello ${req.params.username}`)
+// })
+
+// app.get("/book/:price/:author",(req,res)=>{
+//        res.send(`Book price is ${req.params.price} and author of the book is ${req.params.author}`)
+// })
+
+// // ejs
+// app.get("/page",(req,res)=>{
+
+//     res.render("home");
+// })
+
+// //error Handling 
+// app.use('/api/product',productRoute)
+
+// app.listen(config.port,()=>{
+//     console.log(`Server started at port ${config.port}`);
+// })

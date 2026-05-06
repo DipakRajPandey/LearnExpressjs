@@ -1,0 +1,299 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegencia - Restaurant</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/home.css">
+</head>
+<body>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" id="closeMenu">
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Menu</a></li>
+            <li><a href="#">Chef</a></li>
+            <li><a href="#">Portfolio</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Reservation Modal -->
+    <div class="modal-overlay" id="reservationModal">
+        <div class="modal-container">
+            <button class="modal-close" id="modalClose">
+                <span></span>
+                <span></span>
+            </button>
+            
+            <div class="modal-header">
+                <h2 class="modal-title">Table Reservation</h2>
+                <p class="modal-subtitle">Book your table at Elegencia</p>
+            </div>
+            
+            <div class="modal-body">
+                <!-- Reservation Form -->
+                <form class="reservation-form" id="reservationForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="firstName">First Name</label>
+                            <input type="text" id="firstName" class="form-input" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="lastName">Last Name</label>
+                            <input type="text" id="lastName" class="form-input" placeholder="Doe" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email</label>
+                            <input type="email" id="email" class="form-input" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Phone</label>
+                            <input type="tel" id="phone" class="form-input" placeholder="+1 234 567 8900" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="date">Date</label>
+                            <input type="date" id="date" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="time">Time</label>
+                            <select id="time" class="form-select" required>
+                                <option value="">Select Time</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">1:00 PM</option>
+                                <option value="14:00">2:00 PM</option>
+                                <option value="18:00">6:00 PM</option>
+                                <option value="19:00">7:00 PM</option>
+                                <option value="20:00">8:00 PM</option>
+                                <option value="21:00">9:00 PM</option>
+                                <option value="22:00">10:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="guests">Guests</label>
+                            <select id="guests" class="form-select" required>
+                                <option value="">Select Guests</option>
+                                <option value="1">1 Person</option>
+                                <option value="2">2 People</option>
+                                <option value="3">3 People</option>
+                                <option value="4">4 People</option>
+                                <option value="5">5 People</option>
+                                <option value="6">6 People</option>
+                                <option value="7">7 People</option>
+                                <option value="8">8+ People</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="occasion">Occasion</label>
+                            <select id="occasion" class="form-select">
+                                <option value="">Select Occasion</option>
+                                <option value="birthday">Birthday</option>
+                                <option value="anniversary">Anniversary</option>
+                                <option value="business">Business</option>
+                                <option value="romantic">Romantic</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="requests">Special Requests</label>
+                        <textarea id="requests" class="form-textarea" placeholder="Any dietary restrictions, special occasions, or seating preferences..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">CONFIRM RESERVATION</button>
+                    
+                    <p class="form-note">We will send you a confirmation email shortly.</p>
+                </form>
+                
+                <!-- Success Message -->
+                <div class="success-message" id="successMessage">
+                    <div class="success-icon">✓</div>
+                    <h3 class="success-title">Reservation Confirmed!</h3>
+                    <p class="success-text">Thank you for booking with us. We've sent a confirmation email to your inbox. We look forward to welcoming you!</p>
+                    <button class="btn-close-success" id="btnCloseSuccess">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <a href="#" class="btn-reservation" id="btnReservation">RESERVATIONS</a>
+            <a href="#" class="logo">Elegencia</a>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#">HOME</a></li>
+                <li><a href="#">ABOUT</a></li>
+                <li><a href="#">MENU</a></li>
+                <li><a href="#">CHEF</a></li>
+                <li><a href="#">PORTFOLIO</a></li>
+                <li><a href="#">BLOG</a></li>
+                <li><a href="#">CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">ELEGENCIA <span class="hero-subtitle">RESTAURANT</span></h1>
+                <p class="hero-text">
+                    Welcome to our restaurant, where culinary artistry meets exceptional dining experiences. At Elegencia, we strive to create a gastronomic haven that tantalizes your taste buds and leaves you with unforgettable memories.
+                </p>
+                <a href="#" class="btn-view-more">VIEW MORE</a>
+            </div>
+            
+            <div class="hero-image">
+                <img src="https://image.qwenlm.ai/public_source/f80b14aa-25bc-44d1-aada-0aed92d3bec4/1fe329582-06a7-43a3-b3c2-5ba388146581.png" alt="Roasted Chicken Dish">
+            </div>
+        </div>
+
+        <!-- Carousel Controls -->
+        <div class="carousel-controls">
+            <div class="control-btn">&larr;</div>
+            <div class="control-btn">&rarr;</div>
+        </div>
+    </section>
+
+    <script>
+        // --- Mobile Menu Functionality ---
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+
+        const toggleMenu = () => {
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        };
+
+        hamburger.addEventListener('click', toggleMenu);
+        closeMenu.addEventListener('click', toggleMenu);
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                toggleMenu();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
+
+        // --- Reservation Modal Functionality ---
+        const btnReservation = document.getElementById('btnReservation');
+        const reservationModal = document.getElementById('reservationModal');
+        const modalClose = document.getElementById('modalClose');
+        const reservationForm = document.getElementById('reservationForm');
+        const successMessage = document.getElementById('successMessage');
+        const btnCloseSuccess = document.getElementById('btnCloseSuccess');
+
+        // Set minimum date to today
+        const dateInput = document.getElementById('date');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+
+        // Open Modal
+        const openModal = () => {
+            reservationModal.classList.add('active');
+            document.body.classList.add('modal-open');
+            // Reset form state
+            reservationForm.classList.remove('hidden');
+            successMessage.classList.remove('active');
+            reservationForm.reset();
+        };
+
+        // Close Modal
+        const closeModal = () => {
+            reservationModal.classList.remove('active');
+            document.body.classList.remove('modal-open');
+        };
+
+        btnReservation.addEventListener('click', openModal);
+        modalClose.addEventListener('click', closeModal);
+        btnCloseSuccess.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside
+        reservationModal.addEventListener('click', (e) => {
+            if (e.target === reservationModal) {
+                closeModal();
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && reservationModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Form Submission
+        reservationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                date: document.getElementById('date').value,
+                time: document.getElementById('time').value,
+                guests: document.getElementById('guests').value,
+                occasion: document.getElementById('occasion').value,
+                requests: document.getElementById('requests').value
+            };
+
+            // Simulate form submission (in real app, send to server)
+            console.log('Reservation Data:', formData);
+            
+            // Show success message
+            reservationForm.classList.add('hidden');
+            successMessage.classList.add('active');
+        });
+    </script>
+</body>
+</html>
+
