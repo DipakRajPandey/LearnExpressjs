@@ -6,4 +6,6 @@ const router=express.Router();
 
 router.post("/login",validation(loginSchema),authController.login);
 router.post("/register",validation(registerSchema),authController.register)
+router.post("/forgot-password",authController.forgetPassword)
+router.post("/reset-password",authController.resetPassword)
 export default router;

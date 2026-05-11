@@ -69,13 +69,32 @@ const cancelOrder = async (req,res) => {
 };
 const confirmOrder = async (req,res) => {
       try {
-        const data=await orderService.confirmOrder(req.params.id)
+        const data=await orderService.confirmOrder(req.params.id,req.body?.status)
         res.json(data)
     } catch (error) {
         res.status(400).json(error.message)
         
     }
 };
+const orderPaymentViaCash =async(req,res)=>{
+    try {
+        const data= await orderService.orderPaymentViaCash(req.params.id)
+        res.json(data);
+    } catch (error) {
+        res.status(400).json(error.message)
+        
+    }
+}
+const orderPaymentViaKhalti=async(req,res)=>{
+    try {
+        const data= await orderService.orderPaymentViaCash(req.params.id)
+        res.json(data);
+    } catch (error) {
+        res.status(400).json(error.message)
+        
+    }
+}
+
 export default {
   getOrders,
   getOrderById,
@@ -86,4 +105,6 @@ export default {
   deleteOrder,
   cancelOrder,
   confirmOrder,
+  orderPaymentViaCash ,
+    orderPaymentViaKhalti
 };

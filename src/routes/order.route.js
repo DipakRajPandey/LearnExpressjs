@@ -14,6 +14,8 @@ router.delete("/delete/:id",auth,roleBaseAuth(ROLE_ADMIN),orderController.delete
 router.put("/:id/status",auth,roleBaseAuth(ADMIN_ROLE),orderController.updateOrderStatus);
 router.put("/:id/canceled",auth,roleBaseAuth(ADMIN_ROLE),orderController.cancelOrder);
 router.put("/:id/confirmed",auth,roleBaseAuth(ADMIN_ROLE),orderController.confirmOrder);
+router.put("/:id/payment/cash",auth,roleBaseAuth(CUSTOMER_ROLE),orderController.orderPaymentViaCash);
+router.put("/:id/payment/khalti",auth,roleBaseAuth(CUSTOMER_ROLE),orderController.orderPaymentViaKhalti);
 
 router.get("/:id",orderController.getOrderById)
 export default router;

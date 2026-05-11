@@ -8,4 +8,7 @@ return await User.find();
 const addUser=async(userDetails)=>{
     return await User.create(userDetails);
 }
-export default {getAllUsers,addUser}
+const getUserById=async(id)=>{
+    return await User.findById(id);
+}
+export default {getAllUsers,addUser,getUserById}

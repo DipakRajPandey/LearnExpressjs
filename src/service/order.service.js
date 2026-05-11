@@ -1,6 +1,18 @@
-import { ORDER_STATUS_CONFIRMED } from "../../../mern-20260320-api/src/constants/orderStatus.js";
-import { ORDER_STATUS_CANCELLED } from "../constant/orderStatus.js";
+import {
+  PAYMENT_METHOD_CASH,
+  PAYMENT_METHOD_ONLINE,
+  PAYMENT_STATUS_FAILED,
+  PAYMENT_STATUS_SUCCESS,
+} from "../constant/payment.js";
+import {
+  ORDER_STATUS_CANCELLED,
+  ORDER_STATUS_CONFIRMED,
+} from "../constant/orderStatus.js";
 import Order from "../models/Order.js";
+import Payment from "../models/Payment.js";
+import userService from "./user.service.js";
+import Crypto from "crypto";
+import { payViaKhalti } from "../utils/payment.js";
 const getOrders = async () => {
   return await Order.find()
     .sort({ createdAt: -1 })
@@ -20,23 +32,84 @@ const getOrdersByUser = async (id) => {
     .populate("orderItems.product", "name category brand price imageUrls");
 };
 const createOrder = async (data, id) => {
-  return await Order.create({ ...data, user: id });
-};
-const updateOrderStatus = async (status,id) => {
+ const user=await userService.getUserById(id);
+ if(!data.shippingAddress){
+    data.shippingAddress=user.address;
+ }
+ data.orderNumber=Crypto.randomUUID();
+ data.user=id;
 
-  return await Order.findByIdAndUpdate(id,{status},{new:true});
+  return await Order.create(data);
+};
+const updateOrderStatus = async (status, id) => {
+  return await Order.findByIdAndUpdate(id, { status }, { new: true });
 };
 const deleteOrder = async (id) => {
   await Order.findByIdAndDelete(id);
 };
-const cancelOrder = async (id,status) => {
-   return await Order.findByIdAndUpdate(id,{status:ORDER_STATUS_CANCELLED},{new:true});
+const cancelOrder = async (id, status) => {
+  return await Order.findByIdAndUpdate(
+    id,
+    { status: ORDER_STATUS_CANCELLED },
+    { new: true },
+  );
 };
-const confirmOrder = async (id) => {
-     return await Order.findByIdAndUpdate(id,{status:ORDER_STATUS_CONFIRMED},{new:true});
+const confirmOrder = async (id, status) => {
+  const order = await getOrderById(id);
+  if (status?.toUpperCase() != PAYMENT_STATUS_SUCCESS) {
+    await Payment.findByIdAndUpdate(order.payment, {
+      status: PAYMENT_STATUS_FAILED,
+    });
+    throw { status: 400, message: "Payment is failed" };
+  }
+  await Payment.findByIdAndUpdate(order.payment, {
+    status: PAYMENT_STATUS_SUCCESS,
+  });
 
+  return await Order.findByIdAndUpdate(
+    id,
+    { status: ORDER_STATUS_CONFIRMED },
+    { new: true },
+  );
+};
+
+const orderPaymentViaCash = async (id) => {
+  const order = await getOrderById(id);
+  console.log(order)
+  const orderPayment = await Payment.create({
+    method: PAYMENT_METHOD_CASH,
+    amount: order.totalPrice,
+  });
+
+  return await Order.findByIdAndUpdate(
+    id,
+    { status: ORDER_STATUS_CONFIRMED, payment: orderPayment._id },
+    { new: true },
+  );
+};
+
+const orderPaymentViaKhalti = async (id) => {
+  const order = await getOrderById(id);
+  console.log(order)
+  const orderPayment = await Payment.create({
+    method: PAYMENT_METHOD_ONLINE,
+    amount: order.totalPrice,
+  });
+ await Order.findByIdAndUpdate(id,{payment:orderPayment._id})
+
+
+  return await payViaKhalti({amount:order.totalPrice,
+    purchaseOrderId:order._id,
+    purchaseOrderName:order.orderItems[0].product.name,
+    customerInfo:{
+      name:order.user.name,
+      email:order.user.email,
+      phone:order.user.phone
+    }
+  })
 };
 export default {
+  orderPaymentViaCash,
   getOrders,
   getOrderById,
   getOrdersByMerchant,
@@ -46,4 +119,6 @@ export default {
   deleteOrder,
   cancelOrder,
   confirmOrder,
+  orderPaymentViaKhalti
+ 
 };

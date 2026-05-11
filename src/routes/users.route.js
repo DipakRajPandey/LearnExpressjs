@@ -9,5 +9,6 @@ const router =Express.Router();
 
 router.get("/getAllUser",auth,userController.getAllUsers)
 router.post("/addUser",auth,validation(userSchema),userController.addUser)
+router.get("/:id",auth,userController.getUserById)
 
 export default router;

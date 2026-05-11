@@ -26,5 +26,13 @@ response.status(201).json({
         response.status(400).send(err.message)
     }
 }
+const getUserById=async(request,response)=>{
+    try {
+        const user= await userService.getUserById(request.params.id);
+        response.status(200).json(user)
+    } catch (error) {
+        response.status(400).json(error.message)
+    }
+}
 
-export default { getAllUsers,addUser };
+export default { getAllUsers,addUser,getUserById };
