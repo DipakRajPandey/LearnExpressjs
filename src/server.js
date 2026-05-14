@@ -65,7 +65,7 @@ app.use('/api/user',auth,upload.single("imageUrls"),userRouter)
 app.use("/api/order",auth,orderRouter)
 app.use('/api/auth',authRouter)
 
-
+app.get("/","deployed");
 
 app.listen(config.port,()=>{
     console.log(`Server started at port ${config.port}`);
