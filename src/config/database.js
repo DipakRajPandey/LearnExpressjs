@@ -1,12 +1,14 @@
 import mongoose from 'mongoose'
 import config from './config.js';
-function databaseConnection(){
+const databaseConnection=async()=>{
+try{
 
-mongoose.connect(config.mongodburl).then(()=>{
+mongoose.connect(config.mongodburl)
     console.log("Data base connected successfully");
-})    .catch((err)=>{
-    console.log(err);
-})
+}catch(err){
+ console.log(err);
+}
+ 
 
 
 }
