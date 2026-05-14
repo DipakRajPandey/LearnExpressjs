@@ -18,7 +18,21 @@ const getOrderById = async (req,res) => {
         
     }
 };
-const getOrdersByMerchant = async () => {};
+const getOrdersByMerchant = async (req,res) => {
+            try {
+                const data= await orderService.getOrdersByMerchant(req.user._id)
+                res.json(data);
+            } catch (error) {
+                res.status(400).json(error.message)
+                
+            }
+
+
+
+
+
+
+};
 const getOrdersByUser = async (req,res) => {
    
     try {

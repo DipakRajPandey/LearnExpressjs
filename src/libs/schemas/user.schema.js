@@ -9,7 +9,7 @@ import {
 import { _maxLength } from "zod/v4/core";
 
 const userSchema = z.object({
-  username: z
+  userName: z
     .string({ required_error: "User name is required " })
     .trim()
     .check(minLength(4), maxLength(50)),

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema({
-  username: {
+  userName: {
     required: [true, "User name is required"],
     type: String,
     mixLength: 50,
@@ -55,6 +55,7 @@ const userSchema = mongoose.Schema({
     enum: ["CUSTOMER", "MERCHANT", "ADMIN", "SUPER_ADMIN"],
     default: ["CUSTOMER"],
   },
+  imageUrls: { type: [String] },
 });
 
-export default mongoose.model("User",userSchema);
+export default mongoose.model("User", userSchema);

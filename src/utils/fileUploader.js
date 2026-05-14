@@ -19,4 +19,4 @@ cloudinary.uploader.upload_stream({
     return uploadedFiles;
 
 }
-export default uploadFile
+export default uploadFile;

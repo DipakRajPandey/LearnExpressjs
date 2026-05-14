@@ -13,6 +13,7 @@ import Payment from "../models/Payment.js";
 import userService from "./user.service.js";
 import Crypto from "crypto";
 import { payViaKhalti } from "../utils/payment.js";
+import mongoose from "mongoose";
 const getOrders = async () => {
   return await Order.find()
     .sort({ createdAt: -1 })
@@ -24,7 +25,74 @@ const getOrderById = async (id) => {
     .populate("user", "name,email,phone")
     .populate("orderItems.product", "name category brand price imageUrls");
 };
-const getOrdersByMerchant = async (id) => {};
+const getOrdersByMerchant = async (merchantId) => {
+
+  return await Order.aggregate([
+    {
+      $lookup: {
+        from: "users",
+        localField: "user",
+        foreignField: "_id",
+        as: "orderUser",
+      },
+    },
+    {
+      $unwind: "$orderUser",
+    },
+
+    {
+      $unwind: "$orderItems",
+    },
+
+    {
+      $lookup: {
+        from: "products",
+        localField: "orderItems.product",
+        foreignField: "_id",
+        as: "product",
+      },
+    },
+
+    {
+      $unwind: "$product",
+    },
+
+    {
+      $match: {
+        "product.createdBy": new mongoose.Types.ObjectId(merchantId),
+      },
+    },
+
+    {
+      $project: {
+        orderNumber: 1,
+        payment: 1,
+        shippingAddress: 1,
+        status: 1,
+        totalPrice: 1,
+        createdAt: 1,
+
+        "orderUser._id": 1,
+        "orderUser.name": 1,
+        "orderUser.email": 1,
+        "orderUser.phone": 1,
+
+        orderItem: {
+          quantity: "$orderItems.quantity",
+        },
+
+        product: {
+          _id: "$product._id",
+          name: "$product.name",
+          price: "$product.price",
+          brand: "$product.brand",
+          category: "$product.category",
+          imageUrls: "$product.imageUrls",
+        },
+      },
+    },
+  ]);
+};
 const getOrdersByUser = async (id) => {
   return await Order.find({ user: id })
     .sort({ createdAt: -1 })

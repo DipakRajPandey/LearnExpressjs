@@ -61,7 +61,7 @@ const upload = multer({ storage:multer.memoryStorage() })
 
 //Layer
 app.use('/api/product',upload.array('images', 12),productRoute)
-app.use('/api/user',auth,userRouter)
+app.use('/api/user',auth,upload.single("imageUrls"),userRouter)
 app.use("/api/order",orderRouter)
 app.use('/api/auth',authRouter)
 
