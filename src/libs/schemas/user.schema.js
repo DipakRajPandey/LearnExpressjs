@@ -1,4 +1,4 @@
-import  z, { maxLength, minLength,regex} from "zod";
+import {z} from "zod";
 import { passwordRex, mailRex } from "../../constant/regex.js";
 import {
   ADMIN_ROLE,
@@ -6,13 +6,13 @@ import {
   CUSTOMER_ROLE,
   SUPER_ADMIN_ROLE,
 } from "../../constant/role.js";
-import { _maxLength } from "zod/v4/core";
+
 
 const userSchema = z.object({
   userName: z
     .string({ required_error: "User name is required " })
     .trim()
-    .check(minLength(4), maxLength(50)),
+    .min(4).max(50),
 
   password: z
     .string({ required_error: "Password is required " })
@@ -20,13 +20,13 @@ const userSchema = z.object({
     .regex(passwordRex, {
       message: "Password contain one uppercase one number and one special number",
     })
-    .check(minLength(8,"password is grater than 8 character "), maxLength(20,"invalid_error: and less than 20 character")),
+    .min(8,"password is grater than 8 character ").max(20,"invalid_error: and less than 20 character"),
 
   email: z.string({required_error:"email is required"}).trim().regex(mailRex,{message:"Invalid email format "}),
   
 
 
-  phone:z.string({required_error:"Phone number is required "}).trim().check(minLength(5,"Phone too short"),maxLength(15,"Phone too long")),
+  phone:z.string({required_error:"Phone number is required "}).trim().min(5,"Phone too short").max(15,"Phone too long"),
   
 
   isActive:z.boolean().default(true),
@@ -40,7 +40,7 @@ const userSchema = z.object({
   }),
   
   
-  role:z.array(z.enum([CUSTOMER_ROLE,MERCHANT_ROLE,ADMIN_ROLE,SUPER_ADMIN_ROLE])).default(CUSTOMER_ROLE)
+  role:z.array(z.enum([CUSTOMER_ROLE,MERCHANT_ROLE,ADMIN_ROLE,SUPER_ADMIN_ROLE])).default([CUSTOMER_ROLE])
 
  
 });
