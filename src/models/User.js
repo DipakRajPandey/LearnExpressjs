@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { ADMIN_ROLE, CUSTOMER_ROLE, MERCHANT_ROLE, SUPER_ADMIN_ROLE } from "../constant/role.js";
 
 const userSchema = mongoose.Schema({
   userName: {
@@ -52,8 +53,8 @@ const userSchema = mongoose.Schema({
   },
   role: {
     type: [String],
-    enum: ["CUSTOMER", "MERCHANT", "ADMIN", "SUPER_ADMIN"],
-    default: ["CUSTOMER"],
+    enum: [CUSTOMER_ROLE, MERCHANT_ROLE, ADMIN_ROLE, SUPER_ADMIN_ROLE],
+    default: [CUSTOMER_ROLE],
   },
   imageUrls: { type: [String] },
 });
