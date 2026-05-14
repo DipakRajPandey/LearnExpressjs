@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema({
   userName: {
     required: [true, "User name is required"],
     type: String,
-    mixLength: 50,
+    max: 50,
   },
   password: {
     type: String,
@@ -15,13 +15,13 @@ const userSchema = mongoose.Schema({
   email: {
     required: [true, "Email is required"],
     type: String,
-    validation: {
-      validate: (value) => {
-        const testmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        return testmail.test(value);
-      },
-      message: "Invalid email address",
-    },
+    // validatio: {
+    //   validate: (value) => {
+    //     const testmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    //     return testmail.test(value);
+    //   },
+    //   message: "Invalid email address",
+    // },
     unique: true,
   },
   phone: {

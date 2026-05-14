@@ -1,4 +1,4 @@
-import z ,{ email, maxLength, minLength } from "zod";
+import {z} from "zod";
 import { mailRex } from "../../constant/regex.js";
 import userSchema from "./user.schema.js";
 

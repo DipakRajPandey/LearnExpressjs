@@ -8,14 +8,14 @@ const getAllUsers = async (query) => {
   const limit = query.limit ?? 10;
   const offset = query.offset ?? 0;
 
-  const filter = {};
+  const filters = {};
   const { name, email, phone } = query;
 
   if (name) filters.name = { $regex: name, $options: "i" };
   if (email) filters.email = { $regex: email, $options: "i" };
   if (phone) filters.phone = { $regex: phone, $options: "i" };
 
-  return await User.find(filters).sort(sort).limit(limit).skip(upset);
+  return await User.find(filters).sort(sort).limit(limit).skip(offset);
 };
 const addUser = async (userDetails) => {
   return await authServicer.register(userDetails);
