@@ -66,6 +66,13 @@ app.use("/api/order",auth,orderRouter)
 app.use('/api/auth',authRouter)
 
 
+app.get("/", (request, response) => {
+  response.json({
+    status: "ok",
+    version: "1.0.0",
+    port: config.port,
+  });
+});
 
 app.listen(config.port,()=>{
     console.log(`Server started at port ${config.port}`);
