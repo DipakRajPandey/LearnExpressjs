@@ -20,6 +20,7 @@ const productSchema = mongoose.Schema({
     required: [true, "Created by user id is required"],
   },
   imageUrls: { type: [String] },
+  description:{type:String}
 });
 
 export default mongoose.model("Product", productSchema);

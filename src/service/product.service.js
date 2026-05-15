@@ -1,4 +1,6 @@
+import { PRODUCT_DESCRIPTION_PROMPT } from "../constant/prompt.js";
 import Product from "../models/Product.js";
+import promptAI from "../utils/ai.js";
 import uploadFile from "../utils/fileUploader.js";
 
 const getAllProducts = async (query) => {
@@ -26,9 +28,15 @@ const getProductById = async (id) => {
 
 const addProduct = async (product, files, userId) => {
   const uploadedfiles = await uploadFile(files);
+
+   const promptMessage = PRODUCT_DESCRIPTION_PROMPT.replace("%s", product.name)
+      .replace("%s", product.category)
+      .replace("%s", product.brand);
+  const description=product.description ?? (await promptAI(promptMessage));
   try {
     return await Product.create({
       ...product,
+      description,
       imageUrls: uploadedfiles.map((file) => file.url),
       createdBy: userId,
     });
