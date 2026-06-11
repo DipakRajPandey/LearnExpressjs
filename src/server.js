@@ -11,6 +11,7 @@ import logger from "./middleware/logger.js";
 import auth from "./middleware/auth.js"
 import multer from "multer"
 import cloudinaryConnection from "./config/cloudinary.js";
+import cors from "cors";
 
 
 const app=Express();
@@ -20,6 +21,7 @@ databaseConnection();
 cloudinaryConnection();
  app.use(bodyParser.json());
 app.use(logger)
+app.use(cors());
 
 // const upload = multer({ dest: 'uploads/' })
 const upload = multer({ storage:multer.memoryStorage() })
