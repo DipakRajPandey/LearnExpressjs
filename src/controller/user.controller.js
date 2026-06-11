@@ -3,7 +3,7 @@ import userService from "../service/user.service.js";
 
 const getAllUsers = async (request, response) => {
   try {
-    const users = await userService.getAllUsers(req.query);
+    const users = await userService.getAllUsers(request.query);
 
     response.status(200).json(users);
   } catch (err) {
