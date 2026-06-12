@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { date } from "zod";
 
 const productSchema = mongoose.Schema({
   name: { type: String, minLength: 3, required: true },
@@ -20,7 +21,10 @@ const productSchema = mongoose.Schema({
     required: [true, "Created by user id is required"],
   },
   imageUrls: { type: [String] },
-  description:{type:String}
+  description:{type:String},
+  createAt:{type:Date,
+    default:Date.now()
+  }
 });
 
 export default mongoose.model("Product", productSchema);
