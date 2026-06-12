@@ -16,7 +16,7 @@ router.post(
   roleBaseAuth(MERCHANT_ROLE),validation(productSchema),
   productController.addProduct,
 );
-router.put("/update",auth,roleBaseAuth(ADMIN_ROLE),productController.updateProduct);
+router.put("/update",auth,roleBaseAuth(MERCHANT_ROLE),productController.updateProduct);
 router.get("/count", productController.getCount);
 router.get("/category", productController.getCategory);
 router.get("/brand", productController.getBrand);
