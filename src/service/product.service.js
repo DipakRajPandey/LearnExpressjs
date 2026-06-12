@@ -71,5 +71,7 @@ export default {
   getCount,
   getCategory,
   getBrand,
-  deleteProduct
+  deleteProduct,
+  
+updateProduct
 };
