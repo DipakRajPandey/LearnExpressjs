@@ -22,7 +22,7 @@ router.get("/category", productController.getCategory);
 router.get("/brand", productController.getBrand);
 
 //  dynamic routing
-router.delete("/delete/:id", auth,roleBaseAuth(ADMIN_ROLE),productController.deleteProduct)
+router.delete("/delete/:id", auth,roleBaseAuth(MERCHANT_ROLE),productController.deleteProduct)
 router.get("/:id", productController.getProductById);
 
 export default router;
