@@ -22,7 +22,7 @@ const productSchema = mongoose.Schema({
   },
   imageUrls: { type: [String] },
   description:{type:String},
-  createAt:{type:Date,
+  createdAt:{type:Date,
     default:Date.now()
   }
 });
