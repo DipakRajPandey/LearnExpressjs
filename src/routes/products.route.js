@@ -16,12 +16,13 @@ router.post(
   roleBaseAuth(MERCHANT_ROLE),validation(productSchema),
   productController.addProduct,
 );
-router.put("/update",auth,roleBaseAuth(MERCHANT_ROLE),productController.updateProduct);
+
 router.get("/count", productController.getCount);
 router.get("/category", productController.getCategory);
 router.get("/brand", productController.getBrand);
 
 //  dynamic routing
+router.put("/update/:id",auth,roleBaseAuth(MERCHANT_ROLE),productController.updateProduct);
 router.delete("/delete/:id", auth,roleBaseAuth(MERCHANT_ROLE),productController.deleteProduct)
 router.get("/:id", productController.getProductById);
 
