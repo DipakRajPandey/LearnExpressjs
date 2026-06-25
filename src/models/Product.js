@@ -12,8 +12,10 @@ const productSchema = mongoose.Schema({
 
   category: String,
   price: {
-    type: String,
-    cast: `please enter Number value `,
+    type: Number,
+    required: [true, "Price is required."],
+    min: [1, "Price must be greater than 1."],
+    max: [1000000, "Price must be less than 10,00,000."],
   },
   createdBy: {
     type: mongoose.Schema.ObjectId,
