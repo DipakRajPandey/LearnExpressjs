@@ -8,6 +8,6 @@ export const productSchema = z.object({
     ),
   category: z.string({ required_error: "Category is required" }).trim(),
   brand: z.string().optional(),
-  price: z.number().min(1).max(100000),
+  price: z.string().min(1).max(100000),
   stock: z.string().default(1),
 });
