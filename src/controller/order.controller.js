@@ -45,7 +45,8 @@ const getOrdersByUser = async (req,res) => {
 };
 const createOrder = async (req,res) => {
     try {
-        const order=await orderService.createOrder(req.body,req.user._id)
+    
+        const order=await orderService.createOrder(req.body,req.user)
         res.status(200).json(order);
     } catch (error) {
         res.status(400).json(error.message)
