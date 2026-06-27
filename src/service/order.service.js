@@ -99,8 +99,8 @@ const getOrdersByUser = async (id) => {
     .populate("user", "userName email phone")
     .populate("orderItems.product", "name category brand price imageUrls");
 };
-const createOrder = async (data, id) => {
- const user=await userService.getUserById(id);
+const createOrder = async (data, authUser) => {
+ const user=await userService.getUserById(authUser._id,authUser);
  if(!data.shippingAddress){
     data.shippingAddress=user.address;
  }
