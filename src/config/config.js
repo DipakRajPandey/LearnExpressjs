@@ -23,7 +23,9 @@ khalti:{
     khalti_return_url:process.env.KHALTI_RETURN_URL ||"",
 },
 resend_email_api_key:process.env.RESEND_EMAIL_API_KEY ||"",
-gemini_api_key:process.env.GEMINI_API_KEY ||""
+gemini_api_key:process.env.GEMINI_API_KEY ||"",
+
+stripeSecretKey: process.env.STRIPE_SECRET_KEY || "",
 };
 
 

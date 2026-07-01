@@ -12,7 +12,7 @@ import Order from "../models/Order.js";
 import Payment from "../models/Payment.js";
 import userService from "./user.service.js";
 import Crypto from "crypto";
-import { payViaKhalti } from "../utils/payment.js";
+import { payViaKhalti, payViaStripe } from "../utils/payment.js";
 import mongoose from "mongoose";
 const getOrders = async () => {
   return await Order.find()
@@ -105,7 +105,7 @@ const createOrder = async (data, authUser) => {
     data.shippingAddress=user.address;
  }
  data.orderNumber=Crypto.randomUUID();
- data.user=id;
+ data.user=authUser._id;
 
   return await Order.create(data);
 };
@@ -176,6 +176,29 @@ const orderPaymentViaKhalti = async (id) => {
     }
   })
 };
+const orderPaymentViaStripe = async (id) => {
+  const order = await getOrderById(id);
+
+  const orderPayment = await Payment.create({
+    method: PAYMENT_METHOD_CARD,
+    amount: order.totalPrice,
+  });
+
+  await Order.findByIdAndUpdate(id, {
+    payment: orderPayment.id,
+  });
+
+  return await payViaStripe({
+    amount: order.totalPrice,
+    orderId: order.orderNumber,
+    orderName: order.orderItems[0].product.name,
+    customer: {
+      name: order.user.name,
+      email: order.user.email,
+      phone: order.user.phone,
+    },
+  });
+};
 export default {
   orderPaymentViaCash,
   getOrders,
@@ -187,6 +210,7 @@ export default {
   deleteOrder,
   cancelOrder,
   confirmOrder,
-  orderPaymentViaKhalti
+  orderPaymentViaKhalti,
+  orderPaymentViaStripe
  
 };

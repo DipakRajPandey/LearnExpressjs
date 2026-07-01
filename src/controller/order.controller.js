@@ -45,11 +45,14 @@ const getOrdersByUser = async (req,res) => {
 };
 const createOrder = async (req,res) => {
     try {
-    
+    console.log(req.body)
         const order=await orderService.createOrder(req.body,req.user)
         res.status(200).json(order);
     } catch (error) {
-        res.status(400).json(error.message)
+        res.status(400).json({
+        message: error.message,
+        stack: error.stack,
+    });
     }
 };
 const updateOrderStatus = async (req,res) => {
@@ -102,7 +105,7 @@ const orderPaymentViaCash =async(req,res)=>{
 }
 const orderPaymentViaKhalti=async(req,res)=>{
     try {
-        const data= await orderService.orderPaymentViaCash(req.params.id)
+        const data= await orderService.orderPaymentViaKhalti(req.params.id)
         res.json(data);
     } catch (error) {
         res.status(400).json(error.message)
@@ -110,6 +113,15 @@ const orderPaymentViaKhalti=async(req,res)=>{
     }
 }
 
+const orderPaymentViaStripe=async(req,res)=>{
+    try {
+        const data= await orderService.orderPaymentViaStripe(req.params.id)
+        res.json(data);
+    } catch (error) {
+        res.status(400).json(error.message)
+        
+    }
+}
 export default {
   getOrders,
   getOrderById,
