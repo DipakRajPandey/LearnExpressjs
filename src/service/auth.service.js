@@ -69,7 +69,7 @@ const forgetPassword=async (email) => {
   if(!user){
     throw{
       status:404,
-      message:"User not found"
+      message: "User of this user is not exist "
     }
   }
   const token =crypto.randomUUID()
